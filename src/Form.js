@@ -33,12 +33,15 @@ const Button = styled.button `
     
 `;
 
-const Form = ({users}) => {
+function Form({users}){
 
   const dispatch = useDispatch();
 
   const [newUserName, setNewUserName] = useState('');
   const [newUserEmail, setNewUserEmail] = useState('');
+  const [newUserPhone, setNewUserPhone] = useState('');
+  const [newUserWebsite, setNewUserWebsite] = useState('');
+  const [newUserCompany, setNewUserCompany] = useState('');
 
   const handleSubmit = (e) =>{
     e.preventDefault();
@@ -46,17 +49,17 @@ const Form = ({users}) => {
     const usersList = users;
     // const newUserId = usersList[usersList.length - 1].id + 1;
     
-    console.log("your name", newUserName);
+    console.log("values", newUserName, newUserEmail, newUserPhone, newUserWebsite, newUserCompany);
     // console.log("your id", newUserId)
-    console.log("your email", newUserEmail)
 
-    useEffect(() => {
+
       dispatch(usersActions.addUser({
         name:newUserName,
         email:newUserEmail,
+        phone:newUserPhone,
+        website:newUserWebsite,
+        company:newUserCompany
       }));
-    }, [dispatch]);
- 
    }
 
    const handleCancel = () => {};
@@ -71,7 +74,20 @@ const Form = ({users}) => {
         <Label htmlFor="email">Email</Label>
         <Input id="email"  onChange={e => setNewUserEmail(e.target.value)} name="email" value={newUserEmail}/>
       </FormGroup>
-     <Button type="submit" value="Submit" onClick={handleSubmit}>Save</Button>
+
+      <FormGroup>
+    <Label htmlFor="phone">Phone</Label>
+    <Input id="phone"  onChange={e => setNewUserPhone(e.target.value)} name="phone" value={newUserPhone} />
+ </FormGroup>
+ <FormGroup>
+    <Label htmlFor="website">Website</Label>
+    <Input id="website"  onChange={e => setNewUserWebsite(e.target.value)} name="website" value={newUserWebsite} />
+ </FormGroup>
+<FormGroup>
+   <Label htmlFor="company">Company Name</Label>
+  <Input id="company"  onChange={e => setNewUserCompany(e.target.value)} name="company" value={newUserCompany} />
+</FormGroup>
+     <Button type="submit" value="Submit" onClick={handleSubmit}>Add</Button>
      <Button onClick={handleCancel}>Cancel</Button> 
     </div>
     )
