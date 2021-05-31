@@ -24,14 +24,24 @@ const updateUser = () => async dispatch =>{
   });
 }
 
-
-const addUser = () => async dispatch =>{
+const addUser = () => async dispatch => {
+  try {
+    const res = await httpRequest({
+      url: URL
+    });
     dispatch({
       type: USERS_TYPES.ADD_USERS,
+      payload: res.data
     });
-}
+  } catch (e) {
+    dispatch({
+      type: USERS_TYPES.USERS_ERROR,
+      payload: e.message
+    });
+  }
+};
 
 const userActions = {
-  getUsers, addUser, updateUser
+  getUsers, addUser
 };
 export default userActions;

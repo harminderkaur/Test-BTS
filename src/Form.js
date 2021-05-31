@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import useForm from './CustomHooks';
 import { useDispatch } from 'react-redux';
 import { usersActions } from './actions';
 
@@ -34,55 +33,46 @@ const Button = styled.button `
     
 `;
 
-const Form = (props) => {
+const Form = ({users}) => {
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(usersActions.addUser());
-  }, [dispatch]);
+  const [newUserName, setNewUserName] = useState('');
+  const [newUserEmail, setNewUserEmail] = useState('');
 
-  const form = () => {
-    alert(`form data 
-            Name: ${Inputs.name}
-            email: ${Inputs.email}
-            phone: ${Inputs.phone}
-            website: ${Inputs.website}
-            company: ${Inputs.company} 
-            `);
+  const handleSubmit = (e) =>{
+    e.preventDefault();
+
+    const usersList = users;
+    // const newUserId = usersList[usersList.length - 1].id + 1;
+    
+    console.log("your name", newUserName);
+    // console.log("your id", newUserId)
+    console.log("your email", newUserEmail)
+
+    useEffect(() => {
+      dispatch(usersActions.addUser({
+        name:newUserName,
+        email:newUserEmail,
+      }));
+    }, [dispatch]);
+ 
    }
 
-  const {Inputs, handleInputChange, handleSubmit} = useForm({name: '', email:'',phone:'', website:'',company:''}, form);
-
+   const handleCancel = () => {};
 
     return (
     <div>
-
-      <form onSubmit={handleSubmit}>
        <FormGroup>
          <Label htmlFor="name">Name</Label>
-         <Input id="name"  onChange={handleInputChange} name="name" value={Inputs.name} />
+         <Input id="name"  onChange={e => setNewUserName(e.target.value)} name="name" value={newUserName} />
        </FormGroup>
        <FormGroup>
         <Label htmlFor="email">Email</Label>
-        <Input id="email"  onChange={handleInputChange} name="email" value={Inputs.email}/>
+        <Input id="email"  onChange={e => setNewUserEmail(e.target.value)} name="email" value={newUserEmail}/>
       </FormGroup>
-     <FormGroup>
-        <Label htmlFor="phone">Phone</Label>
-        <Input id="phone"  onChange={handleInputChange} name="phone" value={Inputs.phone} />
-     </FormGroup>
-     <FormGroup>
-        <Label htmlFor="website">Website</Label>
-        <Input id="website"  onChange={handleInputChange} name="website" value={Inputs.website} />
-     </FormGroup>
-    <FormGroup>
-       <Label htmlFor="company">Company Name</Label>
-      <Input id="company"  onChange={handleInputChange} name="company" value={Inputs.company} />
-    </FormGroup>
-     <Button type="submit" value="Submit">Save</Button>
-     <Button onClick={props.onCancel}>Cancel</Button>
-     </form>
-   
+     <Button type="submit" value="Submit" onClick={handleSubmit}>Save</Button>
+     <Button onClick={handleCancel}>Cancel</Button> 
     </div>
     )
 };

@@ -22,6 +22,13 @@ const usersReducer = (state = initialState, action) => {
         usersError: action.payload,
         loading: false
       };
+    case USERS_TYPES.ADD_USERS:
+        return {
+          ...state,
+          users: [...state.users, action.payload ],
+          usersError: action.payload,
+          loading: false
+        };
     default:
       return state;
   }
