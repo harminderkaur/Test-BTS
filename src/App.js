@@ -27,7 +27,7 @@ export default function App() {
       toggle()
   }
 
-  const newUser = () =>{
+  const addUserHandler = () =>{
     toggleHandler()
   }
 
@@ -46,7 +46,7 @@ export default function App() {
   return (
     <div>
 
-      <Button onClick={newUser}>Add New User</Button>
+      <Button onClick={addUserHandler}>Add New User</Button>
      
       <Modal
         isShowing={isShowing}

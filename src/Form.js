@@ -127,15 +127,15 @@ const Form = ({ selectedCard, onCancel }) => {
             value={formData?.address?.city}/>
           </FormGroup>
           <FormGroup>
-     <Label htmlFor="address">Zipcode</Label>
-     <Input
-       id="address"
-       onChange={changeHandler}
-       name="zipcode"
-       data-key="address"
-       value={formData?.address?.zipcode}/>
-    </FormGroup>
-        <FormGroup>
+            <Label htmlFor="address">Zipcode</Label>
+            <Input
+              id="address"
+              onChange={changeHandler}
+              name="zipcode"
+              data-key="address"
+              value={formData?.address?.zipcode}/>
+           </FormGroup>
+          <FormGroup>
           <Label htmlFor="phone">Phone</Label>
           <Input
             id="phone"

@@ -31,10 +31,11 @@ const usersReducer = (state = initialState, action) => {
         loading: false
       };
     case USERS_TYPES.ADD_USER:
+      console.log("reducer", action)
         return {
           ...state,
           users: state.users.map(item => {
-            return item.id === action.payload.id ? { ...action.payload } : { ...item };
+            return {...item, ...action.payload};
           }),
           loading: false
         };

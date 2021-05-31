@@ -28,7 +28,7 @@ const updateUser = data => dispatch => {
 };
 
 const addUser = data => dispatch => {
-  console.log("addUser", data);
+  console.log("action addUser", data);
   dispatch({
     type: USERS_TYPES.ADD_USER,
     payload: data

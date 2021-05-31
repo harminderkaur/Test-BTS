@@ -96,7 +96,7 @@ export default function Card({ user, cardHandler }) {
   return (
     <CardWrapper onClick={() => cardHandler(user)}>
       <ImageSection>
-        {image ? (
+        {image ? (  
           <Image src={image} alt="user profile photo" />
         ) : (
           <Initials>{getInitials(name)}</Initials>
@@ -108,7 +108,7 @@ export default function Card({ user, cardHandler }) {
           <Icon icon={faBars} size={'1x'} /> {email}
         </InfoWrapper>
         <InfoWrapper>
-          <Icon icon={faIdCard} size={'1x'} /> {street}, {suite}, {city},{' '}
+          <Icon icon={faIdCard} size={'1x'} />{suite},  {street}, {city},{' '}
           {zipcode}
         </InfoWrapper>
         <InfoWrapper>
