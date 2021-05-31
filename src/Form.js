@@ -83,6 +83,7 @@ const Form = ({ selectedCard, onCancel }) => {
   const handleSubmit = event => {
     event.preventDefault();
     dispatch(usersActions.updateUser(formData));
+    dispatch(usersActions.addUser(formData));
     onCancel();
   };
 
@@ -173,7 +174,7 @@ const Form = ({ selectedCard, onCancel }) => {
           />
         </FormGroup>
         <Button type="submit" value="Submit">
-          Update
+          Save
         </Button>
         <Button onClick={onCancel}>Cancel</Button>
       </form>

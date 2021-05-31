@@ -1,6 +1,7 @@
 import { USERS_TYPES } from '../actionTypes';
 import httpRequest from '../utils/httpRequest';
 const URL = 'https://jsonplaceholder.typicode.com/users';
+
 const getUsers = () => async dispatch => {
   try {
     const res = await httpRequest({
@@ -26,8 +27,17 @@ const updateUser = data => dispatch => {
   });
 };
 
+const addUser = data => dispatch => {
+  console.log("addUser", data);
+  dispatch({
+    type: USERS_TYPES.ADD_USER,
+    payload: data
+  });
+};
+
 const userActions = {
   getUsers,
-  updateUser
+  updateUser,
+  addUser
 };
 export default userActions;

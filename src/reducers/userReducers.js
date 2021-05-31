@@ -30,6 +30,14 @@ const usersReducer = (state = initialState, action) => {
         }),
         loading: false
       };
+    case USERS_TYPES.ADD_USER:
+        return {
+          ...state,
+          users: state.users.map(item => {
+            return item.id === action.payload.id ? { ...action.payload } : { ...item };
+          }),
+          loading: false
+        };
     default:
       return state;
   }
