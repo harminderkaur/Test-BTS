@@ -47,6 +47,7 @@ function Form({users}){
     e.preventDefault();
 
     const usersList = users;
+    console.log("usersList", usersList)
     // const newUserId = usersList[usersList.length - 1].id + 1;
     
     console.log("values", newUserName, newUserEmail, newUserPhone, newUserWebsite, newUserCompany);
@@ -61,8 +62,6 @@ function Form({users}){
         company:newUserCompany
       }));
    }
-
-   const handleCancel = () => {};
 
     return (
     <div>
@@ -88,7 +87,7 @@ function Form({users}){
   <Input id="company"  onChange={e => setNewUserCompany(e.target.value)} name="company" value={newUserCompany} />
 </FormGroup>
      <Button type="submit" value="Submit" onClick={handleSubmit}>Add</Button>
-     <Button onClick={handleCancel}>Cancel</Button> 
+     
     </div>
     )
 };

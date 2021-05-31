@@ -32,8 +32,9 @@ export default function App() {
         isShowing={isShowing}
         hide={toggleHandler}
       >
-        <p>{selectedCard?.name}</p>
-        <Form selectedCard={selectedCard?.name} onCancel={toggleHandler}  />
+        {/* <p>{selectedCard?.name}</p> */}
+        <Form selectedCard={selectedCard?.name} />
+        <div onClick={toggleHandler}>Cancel</div> 
       </Modal>
 
       {users.map(user => (
