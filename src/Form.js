@@ -35,11 +35,7 @@ const Button = styled.button `
 
 
 const handleChange = (e) =>{
-    e.preventDefault();
-    const {name, value} = useState(null)
     console.log(e.target.value)
-    value(e.target.value)
-    alert(`Submitting Name ${value}`);
   }
 
 const handleSubmit = () => {
@@ -71,7 +67,7 @@ const Form = (props) => {
         <Label htmlFor="company">Company Name</Label>
        <Input id="company" defaultValue={props.selectedCard.company.name} />
      </FormGroup>
-     <input type="submit" value="Submit" />
+     <Button type="submit" value="Submit">Save</Button>
      <Button onClick={props.onCancel}>Cancel</Button>
      </form>
     </div>
