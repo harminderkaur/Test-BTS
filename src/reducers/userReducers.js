@@ -22,13 +22,14 @@ const usersReducer = (state = initialState, action) => {
         usersError: action.payload,
         loading: false
       };
-    case USERS_TYPES.ADD_USERS:
-        return {
-          ...state,
-          users: [...state.users, action.payload ],
-          usersError: action.payload,
-          loading: false
-        };
+    case USERS_TYPES.UPDATE_USER:
+      return {
+        ...state,
+        users: state.users.map(item => {
+          return item.id === action.payload.id ? { ...action.payload } : { ...item };
+        }),
+        loading: false
+      };
     default:
       return state;
   }

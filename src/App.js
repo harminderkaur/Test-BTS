@@ -1,16 +1,16 @@
 import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import { useDispatch, useSelector } from 'react-redux';
 import { usersActions } from './actions';
 import Card from './Card';
 import Modal from "./Modal";
 import useModal from './useModal';
-import Form from './Form';
-
+import Form from './Form'
 export default function App() {
   const {isShowing, toggle} = useModal();
   const dispatch = useDispatch();
   const { users = [] } = useSelector(state => state.users);
-
+ console.log(users)
   const [selectedCard, setSelectedCard] = useState(null)
   useEffect(() => {
     dispatch(usersActions.getUsers());
@@ -26,19 +26,29 @@ export default function App() {
       toggle()
   }
 
+  const Button = styled.button`
+        display: inline-block;
+        color: palevioletred;
+        font-size: 1em;
+        margin: 2em;
+        padding: 0.25em 1em;
+        border: 2px solid palevioletred;
+        border-radius: 3px;
+        display: block;
+  `;
+
   return (
     <div>
+      <Button onClick={cardHandler}>Add New User</Button>
       <Modal
         isShowing={isShowing}
         hide={toggleHandler}
       >
-        {/* <p>{selectedCard?.name}</p> */}
-        <Form selectedCard={selectedCard?.name} />
-        <div onClick={toggleHandler}>Cancel</div> 
+        <Form selectedCard={selectedCard} onCancel={toggleHandler}  />
       </Modal>
 
       {users.map(user => (
-        <Card user={user} key={user.id} cardHandler = {cardHandler}/>
+        <Card user={user} key={user?.id} cardHandler = {cardHandler}/>
       ))}
     </div>
   );

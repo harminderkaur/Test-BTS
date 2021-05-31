@@ -11,114 +11,174 @@ const Input = styled.input`
   border-radius: 3px;
   width: 100%;
   margin-bottom: 0.5em;
-`
+`;
 
 const FormGroup = styled.div`
-	color: palevioletred;
-    display: inline;
-	width: 100%;
+  color: palevioletred;
+  display: inline;
+  width: 100%;
 `;
 
 const Label = styled.label`
-	margin-bottom: 0.5em;
-	color: palevioletred;
+  margin-bottom: 0.5em;
+  color: palevioletred;
+  display: block;
+`;
+
+const Button = styled.button`
+     display: table-footer-group;
+    color: palevioletred;
+    font-size: 1em;
+    padding: 0.25em 1em;
+    border: 2px solid palevioletred;
+    border-radius: 3px;
     display: block;
+    width: 22%;
+    float: left;
+    margin-right: 20px;
+    margin-top: 13px;
+}
 `;
-
-const Button = styled.button `
-    background-color: pink;
-    padding: 10px;
-    border-radius: 4px;
-    margin: 31px 20px 0px 0px;
-    
-`;
-
-function Form({users}){
-
+const DEFAULT_FORM_DATA = {
+  name: '',
+  email: '',
+  image: '',
+  phone: '',
+  website: '',
+  address: {
+    street: '',
+    suite: '',
+    city: '',
+    zipcode: ''
+  },
+  company: {
+    name: '',
+    catchPhrase: ''
+  }
+};
+const Form = ({ selectedCard, onCancel }) => {
   const dispatch = useDispatch();
+  const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
-  const [newUserName, setNewUserName] = useState('');
-  const [newUserEmail, setNewUserEmail] = useState('');
-  const [newUserPhone, setNewUserPhone] = useState('');
-  const [newUserWebsite, setNewUserWebsite] = useState('');
-  const [newUserCompany, setNewUserCompany] = useState('');
+  useEffect(() => {
+    setFormData(selectedCard);
+  }, []);
 
-  const handleSubmit = (e) =>{
-    e.preventDefault();
+  const changeHandler = event => {
+    const {
+      name,
+      value,
+      dataset: { key }
+    } = event.target;
 
-    const usersList = users;
-    console.log("usersList", usersList)
-    // const newUserId = usersList[usersList.length - 1].id + 1;
-    
-    console.log("values", newUserName, newUserEmail, newUserPhone, newUserWebsite, newUserCompany);
-    // console.log("your id", newUserId)
+    if (key) {
+      const updatedKey = { ...formData[key], [name]: value };
+      const updatedData = { ...formData, [key]: updatedKey };
+      setFormData(updatedData);
+    } else {
+      const updatedData = { ...formData, [name]: value };
+      setFormData(updatedData);
+    }
+  };
+  const handleSubmit = event => {
+    event.preventDefault();
+    dispatch(usersActions.updateUser(formData));
+    onCancel();
+  };
 
-
-      dispatch(usersActions.addUser({
-        name:newUserName,
-        email:newUserEmail,
-        phone:newUserPhone,
-        website:newUserWebsite,
-        company:newUserCompany
-      }));
-   }
-
-    return (
+  return (
     <div>
-       <FormGroup>
-         <Label htmlFor="name">Name</Label>
-         <Input id="name"  onChange={e => setNewUserName(e.target.value)} name="name" value={newUserName} />
-       </FormGroup>
-       <FormGroup>
-        <Label htmlFor="email">Email</Label>
-        <Input id="email"  onChange={e => setNewUserEmail(e.target.value)} name="email" value={newUserEmail}/>
-      </FormGroup>
-
-      <FormGroup>
-    <Label htmlFor="phone">Phone</Label>
-    <Input id="phone"  onChange={e => setNewUserPhone(e.target.value)} name="phone" value={newUserPhone} />
- </FormGroup>
- <FormGroup>
-    <Label htmlFor="website">Website</Label>
-    <Input id="website"  onChange={e => setNewUserWebsite(e.target.value)} name="website" value={newUserWebsite} />
- </FormGroup>
-<FormGroup>
-   <Label htmlFor="company">Company Name</Label>
-  <Input id="company"  onChange={e => setNewUserCompany(e.target.value)} name="company" value={newUserCompany} />
-</FormGroup>
-     <Button type="submit" value="Submit" onClick={handleSubmit}>Add</Button>
-     
+      <form onSubmit={handleSubmit}>
+        <FormGroup>
+          <Label htmlFor="name">Name</Label>
+          <Input
+            id="name"
+            onChange={changeHandler}
+            name="name"
+            value={formData?.name}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="email">Email</Label>
+          <Input
+            id="email"
+            onChange={changeHandler}
+            name="email"
+            value={formData?.email}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="address">Street name</Label>
+          <Input
+            id="address"
+            onChange={changeHandler}
+            name="street"
+            data-key="address"
+            value={formData?.address?.street}/>
+          </FormGroup>
+          <FormGroup>
+          <Label htmlFor="address">City</Label>
+          <Input
+            id="address"
+            onChange={changeHandler}
+            name="city"
+            data-key="address"
+            value={formData?.address?.city}/>
+          </FormGroup>
+          <FormGroup>
+     <Label htmlFor="address">Zipcode</Label>
+     <Input
+       id="address"
+       onChange={changeHandler}
+       name="zipcode"
+       data-key="address"
+       value={formData?.address?.zipcode}/>
+    </FormGroup>
+        <FormGroup>
+          <Label htmlFor="phone">Phone</Label>
+          <Input
+            id="phone"
+            onChange={changeHandler}
+            name="phone"
+            value={formData?.phone}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="website">Website</Label>
+          <Input
+            id="website"
+            onChange={changeHandler}
+            name="website"
+            value={formData?.website}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="company">Company Name</Label>
+          <Input
+            id="company"
+            onChange={changeHandler}
+            name="name"
+            data-key="company"
+            value={formData?.company?.name}
+          />
+        </FormGroup>
+        <FormGroup>
+          <Label htmlFor="company">Company Catch Phrase</Label>
+          <Input
+            id="catchPhrase"
+            onChange={changeHandler}
+            data-key="company"
+            name="catchPhrase"
+            value={formData?.company?.catchPhrase}
+          />
+        </FormGroup>
+        <Button type="submit" value="Submit">
+          Update
+        </Button>
+        <Button onClick={onCancel}>Cancel</Button>
+      </form>
     </div>
-    )
+  );
 };
 
 export default Form;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

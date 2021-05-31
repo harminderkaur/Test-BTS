@@ -1,8 +1,6 @@
 import { USERS_TYPES } from '../actionTypes';
 import httpRequest from '../utils/httpRequest';
 const URL = 'https://jsonplaceholder.typicode.com/users';
-
-
 const getUsers = () => async dispatch => {
   try {
     const res = await httpRequest({
@@ -20,44 +18,16 @@ const getUsers = () => async dispatch => {
   }
 };
 
-
-const addUser = () => async dispatch => {
-  try {
-    const res = await httpRequest({
-      url: URL
-    });
-    dispatch({
-      type: USERS_TYPES.ADD_USERS,
-      payload: res.data
-    });
-  } catch (e) {
-    dispatch({
-      type: USERS_TYPES.USERS_ERROR,
-      payload: e.message
-    });
-  }
+const updateUser = data => dispatch => {
+  console.log(data);
+  dispatch({
+    type: USERS_TYPES.UPDATE_USER,
+    payload: data
+  });
 };
 
-
-export const addNewUser = data => {
-  console.log("adding mother a new user", data);
-  return dispatch => {
-    axios.post(URL)
-    .then(response =>{
-     console.log("datata sent by me", response.data)
-      dispatch(addUser(data));
-      dispatch(getUsers());
-    })
-    .catch((e) => {
-      dispatch({
-        type: USERS_TYPES.USERS_ERROR,
-        payload: e.message
-      });
-    })
-  }
-}
-
 const userActions = {
-  getUsers, addUser
+  getUsers,
+  updateUser
 };
 export default userActions;
