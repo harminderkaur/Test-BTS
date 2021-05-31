@@ -18,7 +18,20 @@ const getUsers = () => async dispatch => {
   }
 };
 
+const updateUser = () => async dispatch =>{
+  dispatch({
+    type: USERS_TYPES.UPDATE_USERS,
+  });
+}
+
+
+const addUser = () => async dispatch =>{
+    dispatch({
+      type: USERS_TYPES.ADD_USERS,
+    });
+}
+
 const userActions = {
-  getUsers
+  getUsers, addUser, updateUser
 };
 export default userActions;

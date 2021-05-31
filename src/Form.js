@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import useForm from './CustomHooks';
+import { useDispatch } from 'react-redux';
+import { usersActions } from './actions';
 
 const Input = styled.input`
   padding: 0.8em;
@@ -33,6 +35,12 @@ const Button = styled.button `
 `;
 
 const Form = (props) => {
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(usersActions.addUser());
+  }, [dispatch]);
 
   const form = () => {
     alert(`form data 
