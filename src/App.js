@@ -13,6 +13,7 @@ export default function App() {
   const { users = [] } = useSelector(state => state.users);
  console.log("initial data", users)
   const [selectedCard, setSelectedCard] = useState(null)
+  const [btnAction, setBtnAction] = useState('ADD')
   useEffect(() => {
     dispatch(usersActions.getUsers());
   }, [dispatch]);
@@ -22,13 +23,10 @@ export default function App() {
     setSelectedCard(data)
     toggle()
   }
-  const toggleHandler = ()=>{
+  const toggleHandler = (action)=>{
+       setBtnAction(action)
        setSelectedCard(null)
       toggle()
-  }
-
-  const addUserHandler = () =>{
-    toggleHandler()
   }
 
   const Button = styled.button`
@@ -46,13 +44,13 @@ export default function App() {
   return (
     <div>
 
-      <Button onClick={addUserHandler}>Add New User</Button>
+      <Button onClick={()=>toggleHandler('ADD')}>Add New User</Button>
      
       <Modal
         isShowing={isShowing}
         hide={toggleHandler}
       >
-        <Form selectedCard={selectedCard} onCancel={toggleHandler}  />
+        <Form selectedCard={selectedCard} action={btnAction} onCancel={toggleHandler}  />
       </Modal>
 
       {users.map(user => (

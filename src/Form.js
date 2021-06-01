@@ -56,12 +56,14 @@ const DEFAULT_FORM_DATA = {
     catchPhrase: ''
   }
 };
-const Form = ({ selectedCard, onCancel }) => {
+const Form = ({ selectedCard, onCancel,action }) => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState(DEFAULT_FORM_DATA);
 
   useEffect(() => {
-    setFormData(selectedCard);
+    if (action !== 'ADD') {
+      setFormData(selectedCard);
+    }
   }, []);
 
   const changeHandler = event => {
@@ -80,10 +82,15 @@ const Form = ({ selectedCard, onCancel }) => {
       setFormData(updatedData);
     }
   };
+
   const handleSubmit = event => {
     event.preventDefault();
-    dispatch(usersActions.updateUser(formData));
-    dispatch(usersActions.addUser(formData));
+    if (action === 'ADD') {
+      dispatch(usersActions.addUser(formData));
+    } else {
+      dispatch(usersActions.updateUser(formData));
+    }
+
     onCancel();
   };
 

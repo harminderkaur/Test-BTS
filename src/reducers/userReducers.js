@@ -34,9 +34,7 @@ const usersReducer = (state = initialState, action) => {
       console.log("reducer", action)
         return {
           ...state,
-          users: state.users.map(item => {
-            return {...item, ...action.payload};
-          }),
+          users: [...state.users, {...action.payload, id:state.users.length + 1}],
           loading: false
         };
     default:
