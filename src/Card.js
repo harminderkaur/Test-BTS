@@ -82,6 +82,7 @@ const CompanyName = styled.h3`
 const CompanyMoto = styled.p`
   font-style: italic;
 `;
+
 export default function Card({ user, cardHandler }) {
   const {
     name,
@@ -102,6 +103,7 @@ export default function Card({ user, cardHandler }) {
           <Initials>{getInitials(name)}</Initials>
         )}
       </ImageSection>
+      
       <DetailSection>
         <h1>{name}</h1>
         <InfoWrapper>
@@ -124,6 +126,8 @@ export default function Card({ user, cardHandler }) {
           <CompanyName>{companyName}</CompanyName>
           <CompanyMoto>{catchPhrase}</CompanyMoto>
         </CompanyInfo>
+
+       
       </DetailSection>
     </CardWrapper>
   );

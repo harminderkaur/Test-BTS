@@ -11,9 +11,10 @@ export default function App() {
   const {isShowing, toggle} = useModal();
   const dispatch = useDispatch();
   const { users = [] } = useSelector(state => state.users);
- console.log("initial data", users)
+  //  console.log("initial data", users)
   const [selectedCard, setSelectedCard] = useState(null)
   const [btnAction, setBtnAction] = useState('ADD')
+  
   useEffect(() => {
     dispatch(usersActions.getUsers());
   }, [dispatch]);
@@ -21,6 +22,7 @@ export default function App() {
   const cardHandler = (data) =>{
     console.log(data)
     setSelectedCard(data)
+    setBtnAction(null)
     toggle()
   }
   const toggleHandler = (action)=>{
